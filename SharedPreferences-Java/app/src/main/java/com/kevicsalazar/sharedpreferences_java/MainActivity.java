@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         User user1 = pref.getAny("user1", new TypeToken<User>() {});
         User user2 = pref.getAny("user2", new TypeToken<User>() {});
-        List<User> userList = pref.getAny("users", new TypeToken<List<User>>() {});
+        List<User> users = pref.getAny("users", new TypeToken<List<User>>() {});
 
         Log.e("user1", user1.name);             // Kevin Salazar
         Log.e("user2", user2.name);             // Kelly Salazar
-        Log.e("users", userList.get(0).email);  // kevicsalazar@gmail.com
+        Log.e("users", users.get(0).email);     // kevicsalazar@gmail.com
 
     }
 
