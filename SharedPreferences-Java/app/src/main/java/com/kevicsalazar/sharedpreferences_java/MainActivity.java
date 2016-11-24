@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -16,29 +17,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Creating Data
+
+        JsonObject joUser1 = new JsonObject();
+        joUser1.addProperty("name", "Kevin Salazar");
+        joUser1.addProperty("email", "kevicsalazar@gmail.com");
+
+        JsonObject joUser2 = new JsonObject();
+        joUser2.addProperty("name", "Kelly Salazar");
+        joUser2.addProperty("email", "kellysalazar@gmail.com");
+
+        JsonArray jaUsers = new JsonArray();
+        jaUsers.add(joUser1);
+        jaUsers.add(joUser2);
+
+        // Saving Data
+
         PreferencesUtils pref = new PreferencesUtils(this);
 
-        JsonObject user1 = new JsonObject();
-        user1.addProperty("name", "Kevin Salazar");
-        user1.addProperty("email", "kevicsalazar@gmail.com");
+        pref.putJsonObject("user1", joUser1);
+        pref.putJsonObject("user2", joUser2);
+        pref.putJsonArray("users", jaUsers);
 
-        JsonObject user2 = new JsonObject();
-        user2.addProperty("name", "Kelly Salazar");
-        user2.addProperty("email", "kellysalazar@gmail.com");
+        // Getting Data
 
-        JsonArray users = new JsonArray();
-        users.add(user1);
-        users.add(user2);
+        User user1 = pref.getAny("user1", new TypeToken<User>() {});
+        User user2 = pref.getAny("user2", new TypeToken<User>() {});
+        List<User> userList = pref.getAny("users", new TypeToken<List<User>>() {});
 
-        pref.putJsonArray("users", users);
-
-        List<User> userList = pref.getAny("users");
-
-        Log.e("as", "as" + userList.size());
-        Log.e("as", "as" + userList.toString());
-        Log.e("as", "as" + pref.getJsonArray("users"));
-
-        //Log.e("name", userList.get(0).name);
+        Log.e("user1", user1.name);             // Kevin Salazar
+        Log.e("user2", user2.name);             // Kelly Salazar
+        Log.e("users", userList.get(0).email);  // kevicsalazar@gmail.com
 
     }
 

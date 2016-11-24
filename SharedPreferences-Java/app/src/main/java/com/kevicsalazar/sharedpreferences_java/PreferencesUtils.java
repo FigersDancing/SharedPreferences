@@ -3,14 +3,19 @@ package com.kevicsalazar.sharedpreferences_java;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Kevin Salazar
@@ -95,41 +100,15 @@ public class PreferencesUtils {
         return new JsonParser().parse(pref.getString(key, null)).getAsJsonArray();
     }
 
-
     // No funciona u.u
 
     public <T> void putAny(String key, T value) {
         pref.edit().putString(key, new Gson().toJson(value)).apply();
     }
 
-    public <T> T getAny(String key) {
+    public <T> T getAny(String key, TypeToken typeToken) {
         String value = pref.getString(key, null);
-        return value != null ? (T) new Gson().fromJson(value, new TypeToken<T>() {
-        }.getType()) : null;
+        return new Gson().fromJson(value, typeToken.getType());
     }
-
-   /* public <T> List<T> getList(String key) {
-        String value = pref.getString(key, null);
-        return (List<T>) new Gson().fromJson(value, new TypeToken<T>() {
-        }.getType());
-    }*/
-
-    /*public <T> List<T> getList(String key, Class<T> elementType) {
-        String value = pref.getString(key, null);
-        TypeToken<ArrayList<T>> token = new TypeToken<ArrayList<T>>() {
-        };
-        return new Gson().fromJson(value, token.getType());
-    }
-
-    public <T> T getSomething(String key) {
-        String value = pref.getString(key, null);
-        TypeToken<T> token = new TypeToken<T>() {};
-        return new Gson().fromJson(value, token.getType());
-    }
-
-    public List<User> getUserList(String key){
-        String value = pref.getString(key, null);
-        return new Gson().fromJson(value, new TypeToken<List<User>>() {}.getType());
-    }*/
 
 }
