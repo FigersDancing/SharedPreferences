@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("user1", user1?.name)             // Kevin Salazar
         Log.e("user2", user2?.name)             // Kelly Salazar
-        Log.e("users", users?.get(0)?.email)    // kevicsalazar@gmail.com
+        Log.e("users", users?.first()?.email)   // kevicsalazar@gmail.com
 
     }
 
