@@ -100,10 +100,13 @@ public class PreferencesUtils {
         return new JsonParser().parse(pref.getString(key, null)).getAsJsonArray();
     }
 
-    // No funciona u.u
-
     public <T> void putAny(String key, T value) {
         pref.edit().putString(key, new Gson().toJson(value)).apply();
+    }
+
+    public <T> T getAny(String key, Class<T> clazz) {
+        String value = pref.getString(key, null);
+        return new Gson().fromJson(value, clazz);
     }
 
     public <T> T getAny(String key, TypeToken typeToken) {
