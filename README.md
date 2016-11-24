@@ -28,8 +28,8 @@ SharedPreferences Utils
 
         // Getting Data
 
-        User user1 = pref.getAny("user1", new TypeToken<User>() {});
-        User user2 = pref.getAny("user2", new TypeToken<User>() {});
+        User user1 = pref.getAny("user1", User.class);
+        User user2 = pref.getAny("user2", User.class);
         List<User> users = pref.getAny("users", new TypeToken<List<User>>() {});
 
         Log.e("user1", user1.name);             // Kevin Salazar
